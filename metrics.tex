@@ -1,0 +1,105 @@
+\documentclass[titlepage, hidelinks, 12pt]{article}
+
+
+\usepackage{lipsum}
+\usepackage{hyperref}
+\usepackage{palatino}
+
+\usepackage{chngcntr}
+\counterwithin{figure}{section}
+
+\usepackage{setspace}
+%\usepackage{indentfirst} %tex default is no indent on first paragraph after heading
+\usepackage{url}
+\usepackage{amsmath, amssymb, amsfonts, amsthm}
+\usepackage{float}
+\usepackage{subfig}
+\usepackage{graphicx}
+\usepackage{environ, enumerate}
+%\usepackage{mathbbol}
+%\DeclareSymbolFontAlphabet{\amsmathbb}{AMSb}
+\graphicspath{ {images/} }
+\providecommand{\keywords}[1]{\textbf{\textit{Keywords---}} #1} 
+\usepackage[format=plain,
+            labelfont={bf, it},
+            textfont=it]{caption}
+
+%%%%%%%%%
+% indentation
+%%%%%%%%%
+
+\setlength\parindent{0pt}
+
+\setlength{\voffset}{-1cm}
+\setlength{\textwidth}{17cm}
+\addtolength{\textheight}{2cm}
+\setlength{\footskip}{1cm}
+\addtolength{\oddsidemargin}{-2cm}
+\addtolength{\evensidemargin}{-2cm}
+
+\widowpenalty10000
+\clubpenalty10000
+
+%Def, Lemma, Theorem, Corollary environment
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[subsection]
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+%\newtheorem*{proof}{Proof}
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+\newtheorem*{example}{Example}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+
+%New commands
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Zp}{\ensuremath{\mathbb{Z}_p}}
+\newcommand{\Qp}{\mathbb{Q}_p}
+\newcommand{\F}{\mathbb{F}}
+
+\newcommand{\ktimes}{k^\times}
+\newcommand{\Zptimes}{\Zp^\times}
+\newcommand{\Qptimes}{\Qp^\times}
+
+\newcommand{\ksq}{\left( \ktimes \right)^2}
+\newcommand{\Zpsq}{\left( \Zptimes \right)^2}
+\newcommand{\Qpsq}{\left( \Qptimes \right)^2}
+\newcommand{\sqclasses}{\frac{\ktimes}{\ksq}}
+\newcommand{\squareclasses}{\frac{\ktimes}{\ksq}}
+\newcommand{\qpsquareclasses}{\frac{\Qp^\times}{\Qpsq}}
+
+%New math operators
+\DeclareMathOperator{\ringchar}{char}
+\DeclareMathOperator{\diag}{diag}
+
+\begin{document}
+
+
+\title{Some metrics on the space of cancer treatments}
+\author{PIMS $\text{Math}^{\text{Industry}}$ Team 3 (I think)}
+\maketitle
+
+
+
+
+
+
+\newpage
+
+
+Here is some sample text.
+
+
+
+
+
+
+\end{document}
+
+
+
