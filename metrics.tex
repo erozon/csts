@@ -29,6 +29,7 @@
 %%%%%%%%%
 
 \setlength\parindent{0pt}
+\setlength{\parskip}{\baselineskip}
 
 \setlength{\voffset}{-1cm}
 \setlength{\textwidth}{17cm}
@@ -76,8 +77,77 @@
 
 \newpage
 
+\section{Preamble and some notation}
+Let the universal drug set be $\mathcal{D} = \left\{ d_1, d_2, \ldots \right\}$. Some of these drugs may be prescribed to treat a cancer: 
+a specific cancer treament is some  $T = \left\{ d_{i_1}, \ldots, d_{i_n} \right\}\subseteq \mathcal{D}$. 
+The set of all treatments is $\mathcal{T} = \mathcal{P}(\mathcal{D})$, the power set of $\mathcal{D}$. 
 
-Here is some sample text.
+In an ideal test setting, an experimental treatment $T$ is given to a large sample and we check: did the treatment improve outcomes over
+standard treatments? In practice, however, experimental treatments may be given imperfectly. That is, a treatment $T' \approx T$ may be given,
+where $\approx$ is a vague notion of similar treatment.
+
+One purpose of this project is to define a metric $d$ on $\mathcal{T}$ quantifying similarity of treatment. Or perhaps it isn't a metric that
+we want\dots it probably makes statistical analysis easier if $d(T, T) = 1$ for any $T$, and if $d(T, T')$ gets smaller as $T'$ differs more
+from $T$. So the Jaccard index $J(A, B) = |A\cap B|/|A\cup B|$ would be a reasonable first guess. 
+
+\section{Matching score}
+A confounding factor is that many drugs can target the same aberration. That is, while aionics might recommend drug $d$, a physician may
+prescribe $d'$ without issue.  The Jaccard index is then probably not the greatest scoring available. Instead, we'll want to collapse drugs
+down to the thing (this is vague, but I don't know the correct term) they target. 
+
+The Matching Score basically does this. Vaguely, the matching score is defined by:
+
+\begin{equation}
+    \text{Matching Score }:= \frac{\text{\# of aberrations addressed by prescribed drug regimen}}{\text{\# of aberrations in cancerous tissue}}
+    \label{eqn:matchingScore}
+\end{equation}
+
+Of course, the exact number of aberrations present and addressed is sometimes ambiguous, and certain drugs work better together than others.
+The paper ``Molecular profiling of cancer patients enables personalized combination therapy: the I-PREDICT study'' runs through some of the
+considerations when assigning a matching score. Bo quotes a similar (though not identical) description on Slack. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Considerations when constructing a score}
+Drug choice seems to be one layer of abstraction too far. Rather, when evaluating how closely a drug regimen comes to desired, what we
+wish to understand is: how closely does the regimen attack the issues present in the cancerous tissue? Further, how intensely shoudld we attack?
+If I remember correctly, aionics provides the following. To each cancer profile $C$ is associated a symptom/treatment table: 
+
+\begin{table}[h]
+    \centering
+\begin{tabular}{l|l|l|l}
+aberration           & intensity       & importance   & drug options            \\\hline
+name\_of\_aberration & $x\in\R_{\ge0}$ & $w\in(0, 1)$ & $d_1, d_2, \ldots, d_k$ \\
+\end{tabular}
+\end{table}
+
+We can construct a similar table (first two columns, at least) for each drug regimen $T$. 
+The question, now, is what is a reasonable scoring function $\sigma(C, T)$? Here $\sigma(C, T)$ is a scoring of closeness, evaluating
+how well treatment $T$ attacks cancer profile $C$. 
+
+As a first step, consider how well a regimen attacks a specific aberration. If we want to attack an aberration with
+intensity $x$, and drug combination $T$ attacks with intensity $x_T$, then we'll let $\nu(x, x_T)$ be the intensity adjustment (adjusting
+treatment effectiveness for how close to prescribed intensity we attack). For instance, we could let
+\begin{equation}
+    \nu(x, x_T) := e^{-(x-x_T)^2}.
+    \label{eqn:intensityAdjustment}
+\end{equation}
+From here, it makes sense to define the score:
+
+\begin{equation}
+    \sigma(C, T) = \sum\limits_{a\in\text{Aberrations}} w_a\cdot \nu(x_a, x_{a,T})
+    \label{eqn:ourMatchingScore}
+\end{equation}
 
 
 
